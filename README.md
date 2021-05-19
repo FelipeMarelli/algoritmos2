@@ -1,2 +1,2 @@
-# algoritmos2
-Repositorio para los trabajos prácticos resueltos de Algoritmos II, cátedra Mendez
+# Algoritmos II
+Repositorio para los trabajos prácticos resueltos del curso de Algoritmos II, cátedra Mendez
