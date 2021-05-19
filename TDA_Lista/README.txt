@@ -1,0 +1,34 @@
+En el presente trabajo se implementan las operaciones de un TDA Lista, asi como también las pruebas para garantizar su correcto funcionamiento. En particular, se hace entrega de un archivo lista.c con el código de las funciones, un framework de pruebas pa2mm.h modificado, un archivo de pruebas llamado pruebas.c, y un makefile. 
+
+EJECUCIÓN
+	Para compilar el programa con GCC:
+		make compilar
+	Para compilar y luego correr con Valgrind:
+		make valgrind
+	Para compilar y luego correr:
+		make
+
+FUNCIONAMIENTO
+	La implementación elegida para las funciones del TDA es en todos los casos iterativa. A continuación se detalla el funcionamiento de algunas funciones importantes:
+
+	int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion);
+		La funcion verifica si la posición en la que se debe insertar el nuevo nodo es mayor que la cantidad de elementos. Si lo es, llama a la función lista_insertar() para agregar el elemento como último nodo. De esta manera no tenemos que recorrer la lista entera, ya que como lista_t guarda una referencia al último nodo, la función insertar al final tiene una complejidad algorítmica de O(1). Caso contrario, cuando la posición es menor y diferente a 0, reserva memoria para un nuevo nodo e itera hasta llegar al nodo en la posición anterior a la que se debe insertar. Luego modifica los punteros en el campo siguiente del nodo anterior y del nodo nuevo, de manera que este se añada a la cadena. Las pruebas contemplan, entre otros, los casos de insertar en una lista vacía, insertar en la posición 0, insertar en el medio de una lista llena, e insertar en una posición que no exista. 
+
+	int lista_borrar(lista_t* lista);
+		Elimina un elemento del final de la lista. La complejidad de esta función es O(n) ya que necesita buscar el anteúltimo elemento de la lista para hacer que su siguiente sea NULL. Maneja por separado el caso donde la lista tiene un solo elemento. 
+
+	int lista_borrar_de_posicion(lista_t* lista, size_t posicion);
+		Al igual que insertar_en_posicion, si la posicion recibida es mayor a la cantidad de nodos en la lista, o esta tiene un solo elemento, se llama a la función lista_borrar() y se devuelve el resultado. De lo contrario se maneja el caso de insertar al inicio, haciendo uso de un puntero auxiliar, y el caso genérico de insertar en el medio de la lista. Para esto último se recorre iterativamente guardando una referencia al nodo actual y al anterior, hasta llega a la posición a borrar. Se iguala el campo siguiente del nodo anterior al siguiente del nodo a borrar y se libera la memoria del nodo eliminado. 
+
+	En cuanto a las pruebas, primero se intenta verificar el funcionamiento de las operaciones básicas, y luego se usa esas para verificar el resto. Las primeras verificaciones son las de crear y destruir, utilizando el método de caja blanca. Luego se chequea la función lista_insertar() de la misma manera. Pudiendo crear, insertar y destruir, se verifican las funciones lista_vacia(), lista_ultimo(), y lista_elementos(). Luego utilizando esas operaciones ya chequeadas, se prueban el resto de las funciones de lista. Finalmente se verifican los iteradores, se hacen pruebas de integración de lista, y se chequea la funcionalidad de pila y cola. 
+
+Una lista es un tipo de dato abstracto que representa una colección ordenada de elementos. Sus operaciones básicas permiten insertar, recuperar o eliminar un elemento en una posición arbitraria de la lista. Existen múltiples formas de implementar una lista, una forma simple siendo mediante arreglos. El problema de este método es que impone un límite a la cantidad máxima de elementos en la lista, y hace que las operaciones de insertar y eliminar sean muy costosas en tiempo de ejecución. Por esta razón, las listas se suelen implementar dinámicamente utilizando "nodos", contenedores que almacenan un elemento y una referencia a su nodo sucesor, formando las llamadas "listas enlazadas". De esta manera los elementos no necesitan estar contiguos en memoria, se facilita insertar y eliminar en el medio, y no es necesario saber cuantos elementos de agregarán a la lista al crearla. Cuando un nodo tiene solamente una referencia a su nodo siguiente, se habla de "listas simplemente enlazadas". En cambio, si cada nodo tiene además una referencia a su predecesor, se habla de "listas doblemente enlazadas". 
+
+Una pila es una lista con la restricción de que las inserciones y las eliminaciones se pueden hacer solo en un extremo, llamado el "tope". Se dice que son estructuras de tipo LIFO (Last In, First Out), el último elemento en entrar es el primero en salir. Las operaciones básicas sobre una pila son apilar, que añade un elemento a la pila, desapilar, que elimina el último elemento agregado, y tope, que devuelve dicho elemento para que pueda ser utilizado. 
+Análogamente, las colas también son listas. Sin embargo en una cola se insertan elementos en un extremo, pero se eliminan por el opuesto. Son estructuras de tipo FIFO (First In, First Out), el primero en entrar es el primero en salir. Sus operaciones básicas son encolar, que añade al final de la cola, desencolar, que elimina el primer elemento en la cola, y primero, que lo devuelve sin sacarlo. 
+Una de las características más importantes tanto de las pilas como de las colas, es que todas las operaciones tienen una complejidad algorítmica de O(1), es decir, se ejecutan en tiempo constante, sin importar cuántos elementos haya en ellas. Las implementaciones posibles son las mismas de las listas, con arreglos o con nodos enlazados. 
+
+Un iterador es la interfaz brindada al usuario para recorrer ordenadamente los datos almacenados en un TDA, sin que deba conocer su funcionamiento interno y sin complejidad agregada. Puede pensarse como un TDA en sí mismo, representando una flecha que apunta a un elemento en particular de la estructura a recorrer, y cuya funcionalidad básica es la de devolver el elemento al que apunta, o avanzar al elemento siguiente. 
+Existen 2 tipos de iteradores, internos y externos. En el iterador interno, el ciclo de recorrido es manejado internamente por el TDA, es decir, el usuario simplemente le entrega un puntero a la función a aplicar, y el iterador se encarga de recorrer la estructura aplicando esa función a todos los elementos. Por otro lado, en el iterador externo, el ciclo es manejado por el usuario: se crea una estructura iterador y mediante operaciones el usuario puede avanzar en la lista, recuperar el elemento actual, verificar si todavía hay elementos por recorrer, volver al inicio, etc. La importancia del iterador es muy grande en el TDA lista, ya que sin él la única forma que tiene el usuario de recorrerla entera sería mediante la función lista_elemento_en_posición(), que cada vez que es llamada debe volver a recorrer desde el inicio de la lista, haciendo que sea O(n²) la complejidad total. En cambio, si se recorre con el iterador, la compeljidad es O(n). 
+
+
