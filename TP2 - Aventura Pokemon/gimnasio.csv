@@ -1,0 +1,42 @@
+G;Gimnasio1;5;1
+L;Faustino
+P;Staryu; 50; 40; 50;
+P;Goldeen; 40; 20; 30
+P;Shellder; 30;20;45
+P;Staryu; 40; 40; 50;
+P;Goldeen; 40; 40; 30
+E;Maria
+P;Staryu; 50; 40; 50;
+P;Goldeen; 40; 20; 30
+P;Staryu; 40; 40; 50;
+P;Goldeen; 40; 40; 30
+E;Fernando
+P;Staryu; 50; 40; 50;
+P;Goldeen; 40; 20; 30
+P;Shellder; 30;20;45
+G;Gimnasio2;10;2
+L;Florencia
+P;Staryu; 50; 40; 50;
+P;Goldeen; 40; 20; 30
+P;Shellder; 30;20;45
+P;Staryu; 40; 40; 50;
+P;Goldeen; 40; 40; 30
+E;Marcelo
+P;Staryu; 50; 40; 50;
+P;Goldeen; 40; 20; 30
+P;Shellder; 30;20;45
+G;Gimnasio3;30;3
+L;Catalina
+P;Goldeen; 40; 20; 30
+P;Shellder; 30;20;45
+P;Staryu; 40; 40; 50;
+P;Goldeen; 40; 40; 30
+E;Roberto
+P;Staryu; 50; 40; 50;
+P;Goldeen; 40; 20; 30
+P;Staryu; 40; 40; 50;
+P;Goldeen; 40; 40; 30
+E;Agustin
+P;Staryu; 50; 40; 50;
+P;Goldeen; 40; 20; 30
+P;Shellder; 30;20;40
